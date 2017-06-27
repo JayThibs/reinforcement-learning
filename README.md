@@ -29,22 +29,22 @@ Reinforcement learning is based on the reward hypothesis which is defined by:
 ## Examples of Rewards
 
 * Fly stunt manoeuvres in a helicopter
-..* +ve reward for following desired trajectory 
-..* −ve reward for crashing
+⋅⋅* +ve reward for following desired trajectory 
+⋅⋅* −ve reward for crashing
 * Defeat the world champion at Backgammon 
-..* +/−ve reward for winning/losing a game
+⋅⋅* +/−ve reward for winning/losing a game
 * Manage an investment portfolio 
-..* +ve reward for each $ in bank
+⋅⋅* +ve reward for each $ in bank
 * Control a power station
-..* +ve reward for producing power
-..* −ve reward for exceeding safety thresholds
+⋅⋅* +ve reward for producing power
+⋅⋅* −ve reward for exceeding safety thresholds
 * Make a humanoid robot walk +ve reward for forward motion 
-..* −ve reward for falling over
+⋅⋅* −ve reward for falling over
 * Play many different Atari games better than humans 
-..* +/−ve reward for increasing/decreasing score
+⋅⋅* +/−ve reward for increasing/decreasing score
 * Flying a drone that avoids hitting objects
-..* +ve reward for avoiding hitting object
-..* −ve reward for crashing into object
+⋅⋅* +ve reward for avoiding hitting object
+⋅⋅* −ve reward for crashing into object
 
 ## Agent and Environment
 
