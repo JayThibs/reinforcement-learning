@@ -2,6 +2,8 @@
 
 Contains notes from reinforcement learning courses, books, and online guides.
 
+# Introduction to Reinforcement Learning
+
 Reinforcement Learning is a concept of the same type as supervised and unsupervised learning. 
 
 * In RL, there is no supervisor, only a reward signal (that was worth 3 points, that takes away 2 points, etc).  
@@ -169,3 +171,58 @@ Prediction: evaluate the future. How well will I do if I follow my current polic
 Control: optimise the future. Which policy is the best? Which policy should I follow to get the most reward?
 
 What happens in RL is that we need to do is to evaluate all of our policies (prediction) in order to solve the control problem.
+
+# Markov Decision Process
+
+## Introduction to Markov Decision Processes
+
+Markov Decision Processes formally describe an environment for RL. In this case, the environment it fully observable i.e. the current state completely characterizes the process.
+
+Almost all RL problems can be formalised as MDPs. 
+
+* Optimal control primarily deals with continuous MDPs.** [review this] 
+* Partially observable problems can be converted into MDPs.
+* Bandits are MDPs with one state.** [review this]
+
+You can calculate the probability of being in a successor (following) state s’ given that you are in a Markov State s. This is defined by the state transition probability. This means that we can have a transition matrix P that defines transition probabilities from all states s to all successor states s’. Each row contains the probability from s_i to all s’ states (meaning the sum equals 1).
+
+## Markov Process
+
+A Markov process is a memoryless** random (stochastic) process, i.e. a sequence of random states S1, S2, … with the Markov property. A stochastic process has the Markov property if the conditional probability distribution of future states of the process depends only upon the present state, not on the sequence of events that preceded it. Brownian motion is a well-known Markov process.
+
+In other words, the Markov property tells us that at any state, there is some probability of transitioning to another state regardless of the past states.
+
+**The memoryless aspect essentially implies that the properties of random variables related to the future depend only on relevant information about the current time, not on information from further in the past. The probabilities are not influenced by the history of the process. Imagine the difference between trying to open 500 safes with only one try each (memoryless) vs trying to open one safe 500 times (past attempts are helpful).
+
+The Markov Chain Transition Matrix is useful because it gives us the probability of transitioning to another state given the current state (for all states).
+
+## Markov Reward Process
+
+A Markov reward process is a Markov chain with values (value/reward judgements).
+
+We will accumulate all rewards with “return” G_t which is the total discounted** reward from time-step t, i.e. the sum of all rewards for each time-step. 
+
+**Discount is the gamma that gives a value in [0, 1] based off the present value of future rewards. Therefore, it takes into account the future rewards.
+
+> G_t = R_(t+1) + gamma*R_(t+2) + (gamma^2)*R_(t+2) + … = sum(k = [0, infinity]) (gamma^k)*R_(t+k+1)
+
+As we can see, the higher the gamma, the more impact the future time-steps will have on the return G_t. If gamma is 0, we only look at the next time-step. Any value below 1 will ensure that we can truncate the series at some k value.
+
+If the time series is infinite, introducing a discount value avoids infinite returns in cyclic Markov processes. There are other ways to avoid this, but the discount term is a bit more mathematically convenient.
+
+## The Bellman Equation
+
+The Bellman equation is a linear equation.
+
+> v = R + (gamma)*P*v
+
+It writes the value of a decision problem at a particular point in time in terms of the payoff from some initial choices and the remaining decision problem that results from those initial choices. So, I decide to go left or right and then the Bellman equation takes into account the value of the remaining decisions based on which side I took. Essentially, you separate your sequence of rewards in two parts: the immediate reward and the discounted value from that time-step onward/the successor state you end up in. The discounted value of the successor state essentially tells you how good it is to be in that particular successor state. So, the overall value function v takes into account the immediate reward plus the value of where you ended up (a particular successor state). 
+
+We can solve the equation by:
+
+> (1 - (gamma)*P)*v = R
+> v = R*(1 - (gamma)*P)^-1
+
+The computational complexity is O(n^3) for n states, so this direct solution is only possible for small MRPs. For larger MRPs, we can use iterative methods like dynamic programming, Monte-Carlo evaluation, and Temporal-Difference learning.
+
+## Markov Decision Process
